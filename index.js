@@ -2,14 +2,14 @@ const start = new Date().getTime();
 require("dotenv").config();
 const db = require("./db");
 
-const maxIdleConnectionTime = 5; // max number of seconds a connection can idle
-const maxRunTime = 6 * 1000; // run this script for 10 minutes
-const reapEvery = 1000; // reap connections every second
+const maxIdleConnectionTime = Number(process.env.MAX_IDLE_CONNECTION_TIME) || 5; // max number of seconds a connection can idle
+const scriptRunTime = Number(process.env.MAX_SCRIPT_RUN_TIME) || 600 * 1000; // run this script for 10 minutes
+const reapEvery = Number(process.env.REAP_EVERY) || 1000; // reap connections every second
 console.log("Reaper started");
 // Collect idle connections every second or so
 const timeout = setInterval(async () => {
   const currentTime = new Date().getTime();
-  if (currentTime - start > maxRunTime) {
+  if (currentTime - start > scriptRunTime) {
     // This Reaper closes and cron should start another one soon
     console.log("Closing reaper");
     clearInterval(timeout);
@@ -23,8 +23,8 @@ const timeout = setInterval(async () => {
     AND state_change < current_timestamp - INTERVAL '${maxIdleConnectionTime}' SECOND
 `);
     // success
-    if (results && results.length)
-      console.log("Reaped ", results.length, "on", new Date());
+    // if (results && results.length)
+    //   console.log("Reaped ", results.length, "on", new Date());
   } catch (e) {
     // error
     console.log("Error ", e);
