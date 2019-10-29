@@ -4,6 +4,8 @@
   "description": "Remove idle connections not used recently from RDS Postgres",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "start-dev": "NODE_ENV=development node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

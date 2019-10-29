@@ -1,4 +1,10 @@
 const start = new Date().getTime();
+const envPath =
+  process.env.NODE_ENV === "production" || !process.env.NODE_ENV
+    ? ".env"
+    : `${process.env.NODE_ENV}.env`;
+require("dotenv").config({ path: envPath });
+
 require("dotenv").config();
 const db = require("./db");
 
@@ -23,8 +29,8 @@ const timeout = setInterval(async () => {
     AND state_change < current_timestamp - INTERVAL '${maxIdleConnectionTime}' SECOND
 `);
     // success
-    // if (results && results.length)
-    //   console.log("Reaped ", results.length, "on", new Date());
+    if (process.env.NODE_ENV === "development" && results && results.length)
+      console.log("Reaped ", results.length, "on", new Date());
   } catch (e) {
     // error
     console.log("Error ", e);
