@@ -29,7 +29,8 @@ const timeout = setInterval(async () => {
     AND state_change < current_timestamp - INTERVAL '${maxIdleConnectionTime}' SECOND
 `);
     // success
-    if (process.env.NODE_ENV === "development" && results && results.length)
+    const printResults = process.env.DETAILED_LOG;
+    if (printResults && results && results.length)
       console.log("Reaped ", results.length, "on", new Date());
   } catch (e) {
     // error
