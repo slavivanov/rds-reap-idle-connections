@@ -5,6 +5,7 @@ Useful for RDS Postgres which is being accessed via Lambda, as Lambda can't prop
 
 ### Deployment
 
+0. Run `npm i`
 1. Configure an `.env` file according to `.env.template`
 2. Place on an EC2 instances or long running container that has access to the Postgres DB in question.
 3. Setup cron with
