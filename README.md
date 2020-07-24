@@ -1,6 +1,7 @@
 # Postgres Idle Connections Reaper
 
 Kills `idle`, `idle in transaction`, `idle in transaction (aborted)`, `disabled` connections in RDS that have been idle for too long.
+Useful for RDS Postgres which is being accessed via Lambda, as Lambda can't properly close the connection without reconnecting on every invocation.
 
 ### Deployment
 
