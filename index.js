@@ -24,7 +24,7 @@ const timeout = setInterval(async () => {
     const results = await db.any(`select pg_terminate_backend(pid) from pg_stat_activity where 
       usename='encharge' 
     AND pid <> pg_backend_pid()
-    AND application_name='encharge-domain'
+    AND (application_name='encharge-domain' OR application_name='process-event' OR application_name='encharge-api' OR application_name='flow-steps' OR application_name='email-events')
     AND state in ('idle', 'idle in transaction', 'idle in transaction (aborted)', 'disabled') 
     AND state_change < current_timestamp - INTERVAL '${maxIdleConnectionTime}' SECOND
 `);
