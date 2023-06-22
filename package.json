@@ -24,6 +24,6 @@
   "dependencies": {
     "debug": "^4.1.1",
     "dotenv": "^6.2.0",
-    "pg-promise": "^8.5.5"
+    "pg-promise": "^11.5.0"
   }
 }
